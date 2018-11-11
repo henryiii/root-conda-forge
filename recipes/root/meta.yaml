@@ -1,0 +1,62 @@
+{% set name = "root" %}
+{% set version = "6.14.06" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://root.cern.ch/download/root_v{{version}}.source.tar.gz
+  sha256: 0fb943b61396f282b289e35c455a9ab60126229be1bd3f04a8f00b37c13ab432
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
+    - python
+    - numpy
+    - cmake
+    - openssl
+    - sqlite
+    - pcre
+    - libxml2
+    - icu
+    - graphviz
+    - xz
+    - tbb
+    - gsl # [osx]
+    - freetype # [osx]
+    - krb5 # [osx]
+    - libuuid # [linux]
+    - xorg-libx11 # [linux]
+    - xorg-libxft # [linux]
+  run:
+    - python
+    - numpy
+
+test:
+  # Some package might need a `test/commands` key to check CLI.
+  # List all the packages/modules that `run_test.py` imports.
+  imports:
+      - ROOT
+
+about:
+  home: http://github.com/simplejson/simplejson
+  license: LGPL-2.1
+  license_family: LGPL
+  license_file: LICENSE
+  summary: |
+      A modular scientific software framework. It provides all the
+      functionalities needed to deal with big data processing, statistical analysis,
+      visualisation and storage. It is mainly written in C++ but integrated with
+      other languages such as Python and R.'
+  doc_url: https://root.cern/doc/master/index.html
+  dev_url: https://github.com/root-project/root
+
+extra:
+  recipe-maintainers:
+    - henryiii
